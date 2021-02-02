@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale = 1">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_2362030_x16xnot659h.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="falicon" href="">
+    <title>豆瓣电影</title>
+</head>
+<body>
+    <main>
+        <section class="top250">
+
+        </section>
+        <section class="na">2</section>
+        <section class="search">3</section>
+    </main>
+    <footer>
+        <div class="active"><span class="iconfont icon-top250"></span><span>TOP250</span></div>
+        <div><span class="iconfont icon-us" ></span><span></span>北美</div>
+        <div><span class="iconfont icon-search"></span><span></span>搜索</div>
+    </footer>
+    <script>
+        start();
+        $('footer>div').on('click',function(){
+            var index = $(this).index();
+            $('section').hide().eq(index).fadeIn(1000);
+            $(this).addClass('active').siblings().removeClass('active')
+        })
+
+        var page = 0;
+        
+        function start(){
+            $.ajax({
+                url : "http://39.105.38.10:8081/movie/top250",
+                type : 'GET',
+                data :{
+                    page : page
+            },
+                dataType : 'json'
+                }).done(function(ret){
+                console.log(ret.data.subject)
+                if(page == 10){
+                    console.log('top250加载完毕')
+                }else{
+                    setData(ret.data.subject)
+                    page += 1
+                }
+            }).fail(function(){
+                console.log('error')
+            })
+        }
+        function setData(data){
+            data.forEach(function(value,index){
+                var tal = `<div class="item">
+                    <a href="#">
+                        <div class="cover">
+                            <img src="https://images.weserv.nl/?url=img2.doubanio.com/view/photo/s_ratio_poster/public/p480747492.jpg" alt="">
+                        </div>
+                        <div class="datail">
+                            <h2 class="name">肖申克的救赎</h2>
+                            <div class="extra"><span class="score">9.7</span>分</div>
+                            <div class="extra"><span class = "quote">希望让人自由。</span></div>
+                            <div class="extra">主演：<span class = "director">弗兰克·德拉邦特 Frank Darabont</span></div>
+                        </div>
+                    </a>
+                </div>
+                `
+                var $node = $(tal);
+                $node.find('.cover img').attr('src',getImageUrl(value.img))
+                $node.find('h2').text(value.name)
+                $node.find('.score').text(value.star)
+                $node.find('.quote').text(value.quote)
+                $node.find('.difector').text(value.difector)
+                $('section').eq(0).append($node);
+
+            })
+        }
+        function getImageUrl(url){
+            if(url){
+                let _u = url.substring(7);
+                return 'https://images.weserv.nl/?url=' + _u;
+            }
+        }
+
+        $('main').scroll(function(){
+            if($('section').eq(0).height() <= $('main').scrollTop() + $('main').height()){
+                start();
+            }
+        })
+    </script>
+    <script src="js/index.js"></script>
+</body>
+</html>

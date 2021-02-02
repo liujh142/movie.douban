@@ -1,0 +1,72 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    position: relative;
+    font-size: 12px;
+    line-height: 1.2;
+    background-color: white;
+    width: 100%;
+    overflow-y:hidden;
+}
+main{
+    height: calc(100vh - 50px);
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+    overflow-x:hidden;
+
+}
+main section{
+    display: none;
+}
+main section:first-child{
+    display: block;
+}
+
+/* section */
+.item{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+.item>a{
+    display: flex;
+    text-decoration: none !important;
+    color:#ccc ;
+}
+.item>a .cover,
+.item>a img{
+    width: 70px;
+}
+.item .datail{
+    flex: 1;
+    padding-left: 10px;
+}
+.item .datail .score{
+    color: #ff5722 !important;
+}
+.item .datail h2{
+    font-size: 16px;
+}
+.item .extra{
+    margin-top:5px ;
+}
+
+
+/* footer */
+footer{
+    display: flex;
+
+}
+footer>div{
+    flex: 1;
+    text-align: center;
+    border-top: 1px solid #ccc;
+}
+footer > div > span{
+    display: block;
+    padding-top: 5px;
+}
+footer .active{
+    color: #ff5622;
+}
