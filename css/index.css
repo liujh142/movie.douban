@@ -18,6 +18,8 @@ main{
 }
 main section{
     display: none;
+    height: 100%;
+    overflow-x: scroll;
 }
 main section:first-child{
     display: block;
@@ -51,7 +53,33 @@ main section:first-child{
 .item .extra{
     margin-top:5px ;
 }
-
+#comaing span{
+    margin-right: 5px;
+}
+/* search */
+.searchBox {
+    display: flex;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.searchBox input{
+    flex: 1;
+    padding: 5px;
+    outline: none;
+    border: none;
+    border-radius:10;
+    background-color: #EDEDED;
+}
+.searchBox button{
+    padding: 0;
+    width: 75px;
+    margin-left: 5px;
+    background-color: rgb(255,100,39);
+    border: none;
+}
 
 /* footer */
 footer{
@@ -69,4 +97,16 @@ footer > div > span{
 }
 footer .active{
     color: #ff5622;
+}
+.loading{
+    text-align: center;
+    padding: 5px;
+}
+.loading>.iconfont{
+    display: inline-block;
+    animation: 1s rotate linear infinite;
+}
+@keyframes rotate{
+    0% {transform: rotate(0deg);}
+    100%{transform: rotate(360deg);}
 }
